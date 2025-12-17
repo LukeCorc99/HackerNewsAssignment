@@ -46,24 +46,9 @@ function HomeContent() {
     })
     const [shouldOpenSubmitAfterLogin, setShouldOpenSubmitAfterLogin] = useState(false)
     const [editingPost, setEditingPost] = useState<HackerNewsStory | null>(null)
+    const [searchQuery, setSearchQuery] = useState('')
 
-    const { stories } = useHackerNews({ feedType, page: 1 })
-    
-    useEffect(() => {
-        try {
-            sessionStorage.setItem('selectedFeedType', feedType)
-        } catch (error) {
-            console.error('Error saving feedType:', error)
-        }
-    }, [feedType])
-    
-    useEffect(() => {
-        try {
-            localStorage.setItem('isLoggedIn', isLoggedIn.toString())
-        } catch (error) {
-            console.error('Error saving login state:', error)
-        }
-    }, [isLoggedIn])
+    useHackerNews({ feedType, page: 1 })
     
     useEffect(() => {
         try {
@@ -73,18 +58,27 @@ function HomeContent() {
         }
     }, [viewMode])
 
-    const handleSearch = (query: string) => {
-        if (query.trim() === '') {
-            return stories
-        } else {
-            return stories.filter(story =>
-                story.title.toLowerCase().includes(query.toLowerCase())
-            )
+    useEffect(() => {
+        try {
+            sessionStorage.setItem('selectedFeedType', feedType)
+        } catch (error) {
+            console.error('Error saving feedType:', error)
         }
+    }, [feedType])
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('isLoggedIn', isLoggedIn.toString())
+        } catch (error) {
+            console.error('Error saving login state:', error)
+        }
+    }, [isLoggedIn])
+
+    const handleSearchSubmit = (query: string) => {
+        setSearchQuery(query)
     }
 
-    const handleSearchSubmit = () => {
-        setFeedType('top')
+    const handleSearch = () => {
     }
 
     const handleLogin = (action: 'login' | 'register') => {
@@ -147,6 +141,7 @@ function HomeContent() {
                 onLogout={handleLogout}
                 onSearch={handleSearch}
                 onSearchSubmit={handleSearchSubmit}
+                externalSearchQuery={searchQuery}
             />
             <PostList
                 feedType={feedType}
@@ -154,6 +149,7 @@ function HomeContent() {
                 onChangeFeedType={setFeedType}
                 onChangeViewMode={setViewMode}
                 onEditPost={handleEditPost}
+                searchQuery={searchQuery}
             />
             {authAction && (
                 <AuthModal action={authAction} onClose={handleCloseAuth} onSuccess={handleAuthSuccess} />

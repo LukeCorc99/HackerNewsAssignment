@@ -9,13 +9,18 @@ type HeaderProps = {
   onLogout: () => void
   onSearch: (query: string) => void
   onSearchSubmit?: (query: string) => void
+  externalSearchQuery?: string
 }
 
-export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSearch, onSearchSubmit }: HeaderProps) {
+export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSearch, onSearchSubmit, externalSearchQuery = '' }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [logoutFeedback, setLogoutFeedback] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setSearchQuery(externalSearchQuery)
+  }, [externalSearchQuery])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,8 +53,10 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
       } else {
         onSearch(searchQuery)
       }
-      setSearchQuery('')
+    } else {
+      window.location.href = '/'
     }
+    setSearchQuery('')
   }
 
   return (
@@ -71,7 +78,7 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
           <span className={styles.title}>Hacker News</span>
         </button>
       </div>
-      
+
       <div className={styles.searchWrapper}>
         <Search size={16} className={styles.searchIcon} aria-hidden="true" />
         <input

@@ -11,7 +11,7 @@ import {
   ChevronRight,
   type LucideIcon,
 } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import * as Select from '@radix-ui/react-select'
 import { useHackerNews } from '../../hooks/useHackerNews'
 import PostCard from '../PostCard/PostCard'
@@ -27,6 +27,7 @@ type PostListProps = {
   viewMode: ViewMode
   onChangeViewMode: (next: ViewMode) => void
   onEditPost?: (post: HackerNewsStory) => void
+  searchQuery?: string
 }
 
 const feedIconMap: Record<FeedType, LucideIcon> = {
@@ -51,42 +52,78 @@ export default function PostList({
   viewMode,
   onChangeViewMode,
   onEditPost,
+  searchQuery = '',
 }: PostListProps) {
   const [page, setPage] = useState(1)
+  const [searchPage, setSearchPage] = useState(1)
+  const [stories, setStories] = useState<HackerNewsStory[]>([])
+  const [searchResults, setSearchResults] = useState<HackerNewsStory[]>([])
+  const [searchFetchedPages, setSearchFetchedPages] = useState<number>(0)
   const sectionRef = useRef<HTMLElement>(null)
   const FeedIcon = feedIconMap[feedType]
 
-  const [stories, setStories] = useState<HackerNewsStory[]>([])
-  const { stories: apiStories, isLoading, error, totalPages } = useHackerNews({ feedType, page })
+  const { stories: apiStories, isLoading, error, totalPages } = useHackerNews({ 
+    feedType, 
+    page: searchQuery ? searchFetchedPages + 1 : page 
+  })
 
   useEffect(() => {
-    setStories(apiStories)
-  }, [apiStories])
+    if (!searchQuery) {
+      setStories(apiStories)
+    }
+  }, [apiStories, searchQuery])
+
+  useEffect(() => {
+    setSearchPage(1)
+    setSearchResults([])
+    setSearchFetchedPages(0)
+    if (!searchQuery.trim()) {
+      setPage(1)
+    }
+  }, [searchQuery, feedType])
+
+  useEffect(() => {
+    if (searchQuery.trim() && apiStories.length > 0 && searchFetchedPages < totalPages && searchResults.length < 300) {
+      setSearchResults(prev => {
+        const newResults = [...prev, ...apiStories]
+        return newResults.filter(story =>
+          story.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      })
+      setSearchFetchedPages(prev => prev + 1)
+    }
+  }, [apiStories, searchQuery, totalPages, searchFetchedPages, searchResults])
+
+  const displayStories = searchQuery.trim() === '' ? stories : searchResults
+  const currentPage = searchQuery.trim() === '' ? page : searchPage
+  const currentTotalPages = searchQuery.trim() === '' ? totalPages : Math.ceil(searchResults.length / 30)
+
+  const paginatedStories = displayStories.slice((currentPage - 1) * 30, currentPage * 30)
 
   useEffect(() => {
     if (sectionRef.current) {
       sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-  }, [page])
-
+  }, [currentPage])
 
   const handleFeedTypeChange = (newFeedType: FeedType) => {
     setPage(1)
+    setSearchPage(1)
     onChangeFeedType(newFeedType)
   }
 
-  const handleDeletePost = (postId: number) => {
+  const handleDeletePost = useCallback((postId: number) => {
     if (confirm('Are you sure you want to delete this post?')) {
       try {
         const newPosts = JSON.parse(localStorage.getItem('newPosts') || '[]') as HackerNewsStory[]
         const filtered = newPosts.filter((p: HackerNewsStory) => p && p.id !== postId)
         localStorage.setItem('newPosts', JSON.stringify(filtered))
-        setStories(stories.filter(s => s.id !== postId))
+        setStories(prev => prev.filter(s => s.id !== postId))
       } catch (error) {
         console.error('Error deleting post:', error)
       }
     }
-  }
+  }, [])
 
   const userPostIds = new Set(
     (() => {
@@ -99,6 +136,14 @@ export default function PostList({
       }
     })()
   )
+
+  const setCurrentPage = (newPage: number) => {
+    if (searchQuery.trim()) {
+      setSearchPage(newPage)
+    } else {
+      setPage(newPage)
+    }
+  }
 
   return (
     <section className={styles.wrap} ref={sectionRef}>
@@ -168,7 +213,7 @@ export default function PostList({
       {isLoading && (
         <div className={styles.loading}>
           <div className={styles.spinner} />
-          <p>Loading stories...</p>
+          <p>{searchQuery.trim() ? 'Searching...' : 'Loading stories...'}</p>
         </div>
       )}
 
@@ -177,8 +222,8 @@ export default function PostList({
           <p>Failed to load stories. Please try again.</p>
           <button 
             onClick={() => {
-              handleFeedTypeChange('top')
-              setPage(1)
+              handleFeedTypeChange(feedType)
+              setCurrentPage(1)
             }} 
             className={styles.retryBtn}
           >
@@ -187,15 +232,15 @@ export default function PostList({
         </div>
       )}
 
-      {!isLoading && !error && stories.length > 0 && (
+      {!isLoading && !error && displayStories.length > 0 && (
         <>
           <div className={`${styles.posts} ${styles[viewMode]}`}>
-            {stories.map((story, index) => (
+            {paginatedStories.map((story, index) => (
               <PostCard
                 key={story.id}
                 story={story}
                 viewMode={viewMode}
-                rank={(page - 1) * 30 + index + 1}
+                rank={(currentPage - 1) * 30 + index + 1}
                 isUserPost={userPostIds.has(story.id)}
                 onEdit={onEditPost}
                 onDelete={handleDeletePost}
@@ -203,11 +248,11 @@ export default function PostList({
             ))}
           </div>
 
-          {totalPages > 1 && (
+          {currentTotalPages > 1 && paginatedStories.length > 0 && (
             <div className={styles.pagination}>
               <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={page === 1}
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
                 className={styles.paginationBtn}
               >
                 <ChevronLeft size={18} />
@@ -215,12 +260,12 @@ export default function PostList({
               </button>
 
               <span className={styles.pageInfo}>
-                Page {page} of {totalPages}
+                Page {currentPage} of {currentTotalPages}
               </span>
 
               <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={page >= totalPages}
+                onClick={() => setCurrentPage(Math.min(currentTotalPages, currentPage + 1))}
+                disabled={currentPage >= currentTotalPages}
                 className={styles.paginationBtn}
               >
                 Next
@@ -231,9 +276,15 @@ export default function PostList({
         </>
       )}
 
-      {!isLoading && !error && stories.length === 0 && (
+      {!isLoading && !error && displayStories.length === 0 && (
         <div className={styles.empty}>
           <p>No stories found</p>
+        </div>
+      )}
+
+      {!isLoading && !error && displayStories.length > 0 && paginatedStories.length === 0 && (
+        <div className={styles.empty}>
+          <p>No results found for "{searchQuery}"</p>
         </div>
       )}
     </section>
