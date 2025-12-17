@@ -1,4 +1,4 @@
-import { ExternalLink, MessageSquare, TrendingUp, Clock } from 'lucide-react'
+import { ExternalLink, MessageSquare, TrendingUp, Clock, Trash2, Edit2 } from 'lucide-react'
 import type { HackerNewsStory } from '../../types/story'
 import styles from './PostCard.module.css'
 
@@ -19,9 +19,12 @@ type PostCardProps = {
   story: HackerNewsStory
   viewMode: 'list' | 'grid'
   rank: number
+  isUserPost?: boolean
+  onEdit?: (post: HackerNewsStory) => void
+  onDelete?: (postId: number) => void
 }
 
-export default function PostCard({ story, viewMode, rank }: PostCardProps) {
+export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, onDelete }: PostCardProps) {
   const formattedTime = getTimeAgo(story.time)
 
   const getDomain = (url?: string) => {
@@ -42,6 +45,18 @@ export default function PostCard({ story, viewMode, rank }: PostCardProps) {
     <article className={`${styles.card} ${styles[viewMode]}`} data-testid="post-card">
       <div className={styles.rank}>{rank}</div>
       
+      {domain && (
+        <a 
+          href={storyUrl}
+          target="_blank" 
+          rel="noopener noreferrer"
+          className={styles.domain}
+        >
+          <ExternalLink size={12} aria-hidden="true" />
+          {domain}
+        </a>
+      )}
+      
       <div className={styles.content}>
         <div className={styles.header}>
           <a 
@@ -52,25 +67,24 @@ export default function PostCard({ story, viewMode, rank }: PostCardProps) {
           >
             {story.title}
           </a>
-          {domain && (
-            <span className={styles.domain}>
-              <ExternalLink size={12} aria-hidden="true" />
-              {domain}
-            </span>
-          )}
         </div>
 
         <div className={styles.meta}>
-          <span className={styles.metaItem}>
+          <span className={styles.metaItemStatic}>
             <TrendingUp size={14} aria-hidden="true" />
             {story.score} points
           </span>
           
-          <span className={styles.metaItem}>
+          <a 
+            href={`https://news.ycombinator.com/user?id=${story.by}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.metaItem}
+          >
             by {story.by}
-          </span>
+          </a>
           
-          <span className={styles.metaItem}>
+          <span className={styles.metaItemStatic}>
             <Clock size={14} aria-hidden="true" />
             {formattedTime}
           </span>
@@ -85,6 +99,29 @@ export default function PostCard({ story, viewMode, rank }: PostCardProps) {
               <MessageSquare size={14} aria-hidden="true" />
               {story.descendants} comments
             </a>
+          )}
+
+          {isUserPost && (
+            <div className={styles.actions}>
+              <button
+                className={styles.metaItem}
+                onClick={() => onEdit?.(story)}
+                aria-label="Edit post"
+                title="Edit post"
+              >
+                <Edit2 size={14} aria-hidden="true" />
+                Edit
+              </button>
+              <button
+                className={styles.metaItem}
+                onClick={() => onDelete?.(story.id)}
+                aria-label="Delete post"
+                title="Delete post"
+              >
+                <Trash2 size={14} aria-hidden="true" />
+                Delete
+              </button>
+            </div>
           )}
         </div>
       </div>

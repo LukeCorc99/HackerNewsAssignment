@@ -29,25 +29,46 @@ export function useHackerNews({ feedType, page }: UseHackerNewsOptions) {
         queryFn: () => fetchStoryIds(apiType),
     })
 
-    const startIndex = (page - 1) * STORIES_PER_PAGE
-    const endIndex = startIndex + STORIES_PER_PAGE
-    const paginatedIds = storyIds.slice(startIndex, endIndex)
-
     const {
-        data: stories = [],
+        data: allStories = [],
         isLoading: isLoadingStories,
         error: storiesError,
     } = useQuery<HackerNewsStory[]>({
-        queryKey: ['stories', apiType, page],
-        queryFn: () => fetchStories(paginatedIds),
-        enabled: paginatedIds.length > 0,
+        queryKey: ['allStories', apiType],
+        queryFn: () => fetchStories(storyIds),
+        enabled: storyIds.length > 0,
+        staleTime: 1000 * 60 * 15,
+        gcTime: 1000 * 60 * 30,
     })
 
+    const userNewPosts = feedType === 'new' ? (() => {
+        try {
+            const posts = JSON.parse(localStorage.getItem('newPosts') || '[]') as HackerNewsStory[]
+            const validPosts = posts.filter((post: HackerNewsStory) => {
+                return post && typeof post === 'object' && post.id && post.title
+            })
+            return validPosts.sort((a: HackerNewsStory, b: HackerNewsStory) => b.time - a.time)
+        } catch (error) {
+            console.error('Error parsing localStorage posts:', error)
+            return []
+        }
+    })() : []
+
+    const allStoriesSorted = feedType === 'new'
+        ? [...userNewPosts, ...allStories].filter(s => s && s.id).sort((a, b) => b.time - a.time)
+        : allStories.filter(s => s && s.id)
+
+    const startPageIndex = (page - 1) * STORIES_PER_PAGE
+    const endPageIndex = startPageIndex + STORIES_PER_PAGE
+    const paginatedStories = allStoriesSorted.slice(startPageIndex, endPageIndex)
+
+    const combinedStories = paginatedStories
+
     return {
-        stories,
+        stories: combinedStories,
         isLoading: isLoadingIds || isLoadingStories,
         error: idsError || storiesError,
-        totalStories: storyIds.length,
-        totalPages: Math.ceil(storyIds.length / STORIES_PER_PAGE),
+        totalStories: allStoriesSorted.length,
+        totalPages: Math.ceil(allStoriesSorted.length / STORIES_PER_PAGE),
     }
 }

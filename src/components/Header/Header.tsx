@@ -1,4 +1,4 @@
-import { SquarePen, UserRound, ChevronDown, LogIn, UserPlus } from 'lucide-react'
+import { SquarePen, UserRound, ChevronDown, LogIn, UserPlus, Search } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import styles from './Header.module.css'
 
@@ -7,10 +7,14 @@ type HeaderProps = {
   onSubmit: () => void
   isLoggedIn: boolean
   onLogout: () => void
+  onSearch: (query: string) => void
+  onSearchSubmit?: (query: string) => void
 }
 
-export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout }: HeaderProps) {
+export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSearch, onSearchSubmit }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [logoutFeedback, setLogoutFeedback] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -29,13 +33,59 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout }: Head
     setIsDropdownOpen(false)
   }
 
+  const handleLogout = () => {
+    setLogoutFeedback(true)
+    setTimeout(() => {
+      setLogoutFeedback(false)
+      onLogout()
+    }, 1000)
+  }
+
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      if (onSearchSubmit) {
+        onSearchSubmit(searchQuery)
+      } else {
+        onSearch(searchQuery)
+      }
+      setSearchQuery('')
+    }
+  }
+
   return (
     <header className={styles.header}>
-      <div className={styles.brand}>
-        <span className={styles.logo} aria-hidden="true">
-          Y
-        </span>
-        <span className={styles.title}>Hacker News</span>
+      <div>
+        <button
+          type="button"
+          className={styles.brand}
+          onClick={() => {
+            sessionStorage.setItem('selectedFeedType', 'top')
+            window.location.href = '/'
+          }}
+          aria-label="Go to homepage"
+        >
+          <span className={styles.logo} aria-hidden="true">
+            Y
+          </span>
+          <span className={styles.title}>Hacker News</span>
+        </button>
+      </div>
+      
+      <div className={styles.searchWrapper}>
+        <Search size={16} className={styles.searchIcon} aria-hidden="true" />
+        <input
+          type="text"
+          placeholder="Search posts..."
+          className={styles.searchInput}
+          aria-label="Search posts"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchSubmit()
+            }
+          }}
+        />
       </div>
 
       <div className={styles.actions} aria-label="User actions">
@@ -73,12 +123,13 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout }: Head
                 <button
                   type="button"
                   className={styles.dropdownItem}
-                  onClick={onLogout}
+                  onClick={handleLogout}
                   data-testid="dropdown-logout"
                   role="menuitem"
+                  style={{ opacity: logoutFeedback ? 0.5 : 1, transition: 'opacity 300ms ease' }}
                 >
                   <LogIn size={16} style={{ transform: 'scaleX(-1)' }} />
-                  Log out
+                  {logoutFeedback ? 'Logging out...' : 'Log out'}
                 </button>
               ) : (
                 <>
@@ -108,6 +159,6 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout }: Head
           )}
         </div>
       </div>
-    </header>
+    </header >
   )
 }

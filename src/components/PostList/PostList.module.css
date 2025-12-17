@@ -26,8 +26,18 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(0, 0, 0, 0.03);
   color: rgba(0, 0, 0, 0.9);
-  pointer-events: none;
+  font-family: inherit;
+  cursor: pointer;
   transition: background-color 120ms ease, transform 120ms ease;
+  outline: none;
+}
+
+.pickerDisplay:focus {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.pickerDisplay:focus-visible {
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 .pickerIcon {
@@ -61,10 +71,6 @@
   transform: translateY(-1px);
 }
 
-.pickerSelect:focus + .pickerDisplay {
-  outline: 2px solid #ff6600;
-  outline-offset: 2px;
-}
 
 .viewToggle {
   display: inline-flex;
@@ -216,6 +222,76 @@
   font-size: 14px;
   color: rgba(0, 0, 0, 0.6);
   font-weight: 500;
+}
+
+.dropdown {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+  padding: 6px 0;
+  min-width: 180px;
+  z-index: 1000;
+  animation: slideDown 150ms ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownItem {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: background-color 80ms ease;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdownItemIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+}
+
+.dropdownItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.95);
+}
+
+.dropdownItem:hover .dropdownItemIcon {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.dropdownItem[data-state='checked'] {
+  background: rgba(255, 102, 0, 0.1);
+  color: #ff6600;
+  font-weight: 600;
+}
+
+.dropdownItem[data-state='checked'] .dropdownItemIcon {
+  color: #ff6600;
+}
+
+.dropdownItem[data-state='checked']:hover {
+  background: rgba(255, 102, 0, 0.15);
+}
+
+
+[data-radix-select-item-indicator] {
+  display: none !important;
 }
 
 @media (max-width: 768px) {
