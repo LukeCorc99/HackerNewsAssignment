@@ -157,6 +157,9 @@
 .actions {
   display: flex;
   gap: 12px;
+}
+
+.card.grid .actions {
   margin-left: auto;
 }
 

@@ -1,4 +1,167 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
+
+test.describe('Post Management', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/')
+    await page.waitForLoadState('domcontentloaded')
+    await page.waitForTimeout(2000)
+  })
+
+  const loginUser = async (page: Page) => {
+    const userBtn = page.getByTestId('user-menu')
+    await userBtn.click()
+
+    const loginBtn = page.getByTestId('dropdown-login')
+    await loginBtn.click()
+
+    const usernameInput = page.getByTestId('auth-username')
+    const passwordInput = page.getByTestId('auth-password')
+    const submitBtn = page.getByTestId('auth-submit')
+
+    await usernameInput.fill('testuser')
+    await passwordInput.fill('password123')
+    await submitBtn.click()
+
+    await page.waitForTimeout(2000)
+  }
+
+  const switchToNewFeed = async (page: Page) => {
+    const feedButton = page.locator('button[aria-label="Choose feed"]')
+    await feedButton.click()
+
+    const newOption = page.locator('[role="option"]').filter({ hasText: 'New' })
+    await newOption.click()
+
+    await page.waitForTimeout(2000)
+  }
+
+  test('user can submit a post successfully', async ({ page }) => {
+    await loginUser(page)
+
+    const submitBtn = page.getByTestId('submit')
+    await submitBtn.click()
+
+    const titleInput = page.getByTestId('submit-title')
+    const urlInput = page.getByTestId('submit-url')
+    const submitPostBtn = page.getByTestId('submit-post')
+
+    await titleInput.fill('New Frontend Framework')
+    await urlInput.fill('https://example.com/framework')
+    await submitPostBtn.click()
+
+    const successMsg = page.locator('text=Post submitted successfully')
+    await expect(successMsg).toBeVisible()
+  })
+
+  test('user can see their submitted post on new feed', async ({ page }) => {
+    await loginUser(page)
+
+    const submitBtn = page.getByTestId('submit')
+    await submitBtn.click()
+
+    const titleInput = page.getByTestId('submit-title')
+    const urlInput = page.getByTestId('submit-url')
+    const submitPostBtn = page.getByTestId('submit-post')
+
+    await titleInput.fill('React Performance Tips')
+    await urlInput.fill('https://example.com/react-tips')
+    await submitPostBtn.click()
+
+    await page.waitForTimeout(2000)
+
+    await switchToNewFeed(page)
+
+    await page.waitForTimeout(2000)
+
+    const userPost = page.locator('[data-testid="post-card"]').filter({ hasText: 'React Performance Tips' })
+    await expect(userPost).toBeVisible({ timeout: 15000 })
+    await expect(userPost).toContainText('by testuser')
+  })
+
+  test('user can edit their post successfully', async ({ page }) => {
+    await loginUser(page)
+
+    const submitBtn = page.getByTestId('submit')
+    await submitBtn.click()
+
+    const titleInput = page.getByTestId('submit-title')
+    const urlInput = page.getByTestId('submit-url')
+    const submitPostBtn = page.getByTestId('submit-post')
+
+    await titleInput.fill('Original Post Title')
+    await urlInput.fill('https://example.com/original')
+    await submitPostBtn.click()
+
+    await page.waitForTimeout(3000)
+
+    await switchToNewFeed(page)
+
+    await page.waitForTimeout(4000)
+
+    const userPost = page.locator('[data-testid="post-card"]').filter({ hasText: 'Original Post Title' })
+    await expect(userPost).toBeVisible({ timeout: 15000 })
+    const editBtn = userPost.locator('button[aria-label="Edit post"]')
+
+    await editBtn.click()
+
+    const editTitleInput = page.getByTestId('submit-title')
+    const editUrlInput = page.getByTestId('submit-url')
+    const saveBtn = page.getByTestId('submit-post')
+
+    await editTitleInput.clear()
+    await editTitleInput.fill('Edited Post Title')
+    await editUrlInput.clear()
+    await editUrlInput.fill('https://example.com/edited')
+    await saveBtn.click()
+
+    const successMsg = page.locator('text=Post updated successfully')
+    await expect(successMsg).toBeVisible()
+
+    await page.waitForTimeout(3000)
+
+    const editedPost = page.locator('[data-testid="post-card"]').filter({ hasText: 'Edited Post Title' })
+    await expect(editedPost).toBeVisible({ timeout: 15000 })
+    await expect(editedPost).toContainText('by testuser')
+  })
+
+  test('user can delete their post successfully', async ({ page }) => {
+    await loginUser(page)
+
+    const submitBtn = page.getByTestId('submit')
+    await submitBtn.click()
+
+    const titleInput = page.getByTestId('submit-title')
+    const urlInput = page.getByTestId('submit-url')
+    const submitPostBtn = page.getByTestId('submit-post')
+
+    const postTitle = 'Post to Delete Successfully'
+    await titleInput.fill(postTitle)
+    await urlInput.fill('https://example.com/deleteme')
+    await submitPostBtn.click()
+
+    await page.waitForTimeout(2000)
+
+    await switchToNewFeed(page)
+
+    await page.waitForTimeout(2000)
+
+    const userPost = page.locator('[data-testid="post-card"]').filter({ hasText: postTitle })
+    await expect(userPost).toBeVisible({ timeout: 15000 })
+
+    const deleteBtn = userPost.locator('button[aria-label="Delete post"]')
+
+    page.on('dialog', async (dialog) => {
+      await dialog.accept()
+    })
+
+    await deleteBtn.click()
+
+    await page.waitForTimeout(1000)
+
+    const deletedPost = page.locator('[data-testid="post-card"]').filter({ hasText: postTitle })
+    await expect(deletedPost).not.toBeVisible()
+  })
+})
 
 test.describe('Header', () => {
   test.beforeEach(async ({ page }) => {

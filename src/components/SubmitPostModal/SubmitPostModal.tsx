@@ -6,9 +6,10 @@ type SubmitPostModalProps = {
     onClose: () => void
     editingPost?: { id: number; title: string; url: string | null; text: string | null } | null
     onEditComplete?: () => void
+    username?: string
 }
 
-export default function SubmitPostModal({ onClose, editingPost, onEditComplete }: SubmitPostModalProps) {
+export default function SubmitPostModal({ onClose, editingPost, onEditComplete, username }: SubmitPostModalProps) {
     const [title, setTitle] = useState(editingPost?.title || '')
     const [url, setUrl] = useState(editingPost?.url || '')
     const [text, setText] = useState(editingPost?.text || '')
@@ -69,7 +70,7 @@ export default function SubmitPostModal({ onClose, editingPost, onEditComplete }
                 title,
                 url: url || null,
                 text: text || null,
-                by: 'anonymous',
+                by: username || 'anonymous',
                 score: 1,
                 time: postTime,
                 descendants: 0,

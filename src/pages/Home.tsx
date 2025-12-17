@@ -19,6 +19,13 @@ function HomeContent() {
             return false
         }
     })
+    const [username, setUsername] = useState(() => {
+        try {
+            return localStorage.getItem('username') || ''
+        } catch {
+            return ''
+        }
+    })
     const [authAction, setAuthAction] = useState<AuthAction>(null)
     const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false)
     const [feedType, setFeedType] = useState<FeedType>(() => {
@@ -106,6 +113,12 @@ function HomeContent() {
     const handleAuthSuccess = () => {
         setIsLoggedIn(true)
         setAuthAction(null)
+        try {
+            const storedUsername = localStorage.getItem('username') || ''
+            setUsername(storedUsername)
+        } catch (error) {
+            console.error('Error retrieving username:', error)
+        }
         if (shouldOpenSubmitAfterLogin) {
             setIsSubmitModalOpen(true)
             setShouldOpenSubmitAfterLogin(false)
@@ -150,6 +163,7 @@ function HomeContent() {
                     onClose={handleCloseSubmit}
                     editingPost={editingPost}
                     onEditComplete={handleEditComplete}
+                    username={username}
                 />
             )}
         </>

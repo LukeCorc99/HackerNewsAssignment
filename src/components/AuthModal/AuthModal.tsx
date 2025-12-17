@@ -37,6 +37,11 @@ export default function AuthModal({ action, onClose, onSuccess }: AuthModalProps
     }
 
     setSubmitted(true)
+    try {
+      localStorage.setItem('username', username)
+    } catch (error) {
+      console.error('Error saving username:', error)
+    }
     setTimeout(() => {
       onSuccess(action)
     }, 1500)
