@@ -108,7 +108,7 @@ export default function PostList({
             value={feedType}
             onValueChange={(v) => handleFeedTypeChange(v as FeedType)}
           >
-            <Select.Trigger className={styles.pickerDisplay} aria-label="Choose feed">
+            <Select.Trigger className={styles.pickerDisplay} aria-label="Choose feed" title="Change feed">
               <span className={styles.pickerIcon}>
                 <FeedIcon size={16} aria-hidden="true" />
               </span>
@@ -143,8 +143,10 @@ export default function PostList({
             type="button"
             className={styles.viewBtn}
             aria-pressed={viewMode === 'list'}
+            aria-label="Switch to list view"
             onClick={() => onChangeViewMode('list')}
             data-testid="view-list"
+            title="Switch to list view"
           >
             <List size={18} />
           </button>
@@ -153,8 +155,10 @@ export default function PostList({
             type="button"
             className={styles.viewBtn}
             aria-pressed={viewMode === 'grid'}
+            aria-label="Switch to grid view"
             onClick={() => onChangeViewMode('grid')}
             data-testid="view-grid"
+            title="Switch to grid view"
           >
             <LayoutGrid size={18} />
           </button>

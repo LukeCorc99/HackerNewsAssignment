@@ -1,15 +1,13 @@
 .wrap {
   max-width: 960px;
   margin: 0 auto;
-  padding: 14px 12px;
 }
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0 14px;
+  padding: 20px 0 5px;
 }
 
 .pickerWrapper {

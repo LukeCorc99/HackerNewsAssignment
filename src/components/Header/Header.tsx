@@ -63,6 +63,7 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
             window.location.href = '/'
           }}
           aria-label="Go to homepage"
+          title="Go to homepage"
         >
           <span className={styles.logo} aria-hidden="true">
             Y
@@ -108,6 +109,7 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
             aria-expanded={isDropdownOpen}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             data-testid="user-menu"
+            title="Open user menu"
           >
             <UserRound size={18} aria-hidden="true" />
             <ChevronDown

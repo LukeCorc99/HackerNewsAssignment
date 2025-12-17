@@ -51,6 +51,8 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
           target="_blank" 
           rel="noopener noreferrer"
           className={styles.domain}
+          aria-label={`Visit ${domain}`}
+          title="Visit website"
         >
           <ExternalLink size={12} aria-hidden="true" />
           {domain}
@@ -64,6 +66,8 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
             target="_blank" 
             rel="noopener noreferrer"
             className={styles.title}
+            aria-label={`Open post: ${story.title}`}
+            title="Open post"
           >
             {story.title}
           </a>
@@ -80,6 +84,8 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
             target="_blank"
             rel="noopener noreferrer"
             className={styles.metaItem}
+            aria-label={`View profile for ${story.by}`}
+            title="View user profile"
           >
             by {story.by}
           </a>
@@ -95,6 +101,8 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
               target="_blank"
               rel="noopener noreferrer"
               className={styles.comments}
+              aria-label={`View ${story.descendants} comments on this post`}
+              title="View comments"
             >
               <MessageSquare size={14} aria-hidden="true" />
               {story.descendants} comments
