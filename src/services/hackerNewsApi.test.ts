@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { fetchStoryIds, fetchStory, fetchStories } from '../hackerNewsApi'
-import type { HackerNewsStory } from '../../types/story'
+import { fetchStoryIds, fetchStory, fetchStories } from './hackerNewsApi'
+import type { HackerNewsStory } from '../types/story'
 
 const BASE_URL = 'https://hacker-news.firebaseio.com/v0'
 
