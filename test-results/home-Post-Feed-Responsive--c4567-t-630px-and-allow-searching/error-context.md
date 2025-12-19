@@ -1,0 +1,631 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - button "Go to homepage" [ref=e5] [cursor=pointer]:
+      - generic [ref=e6]: "Y"
+      - generic [ref=e7]: Hacker News
+    - generic "User actions" [ref=e8]:
+      - button "Toggle search" [active] [ref=e9] [cursor=pointer]:
+        - img [ref=e10]
+      - button "Submit post" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+      - button "User menu" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - img [ref=e22]
+  - generic [ref=e25]:
+    - combobox "Choose feed" [ref=e28] [cursor=pointer]:
+      - img [ref=e30]
+      - generic: Top
+      - img [ref=e33]
+    - generic [ref=e35]:
+      - article [ref=e36]:
+        - generic [ref=e37]: "1"
+        - generic [ref=e38]:
+          - 'link "Open post: Garage – An S3 object store so reliable you can run it outside datacenters" [ref=e40] [cursor=pointer]':
+            - /url: https://garagehq.deuxfleurs.fr/
+            - text: Garage – An S3 object store so reliable you can run it outside datacenters
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - img [ref=e43]
+              - text: 238 points
+            - link "View profile for ibobev" [ref=e46] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=ibobev
+              - text: by ibobev
+            - generic [ref=e47]:
+              - img [ref=e48]
+              - text: 3h ago
+            - link "View 37 comments on this post" [ref=e51] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46326984
+              - img [ref=e52]
+              - text: 37 comments
+      - article [ref=e54]:
+        - generic [ref=e55]: "2"
+        - generic [ref=e56]:
+          - 'link "Open post: TP-Link Tapo C200: Hardcoded Keys, Buffer Overflows and Privacy" [ref=e58] [cursor=pointer]':
+            - /url: https://www.evilsocket.net/2025/12/18/TP-Link-Tapo-C200-Hardcoded-Keys-Buffer-Overflows-and-Privacy-in-the-Era-of-AI-Assisted-Reverse-Engineering/
+            - text: "TP-Link Tapo C200: Hardcoded Keys, Buffer Overflows and Privacy"
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - img [ref=e61]
+              - text: 38 points
+            - link "View profile for sibellavia" [ref=e64] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=sibellavia
+              - text: by sibellavia
+            - generic [ref=e65]:
+              - img [ref=e66]
+              - text: 56m ago
+            - link "View 0 comments on this post" [ref=e69] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46329038
+              - img [ref=e70]
+              - text: 0 comments
+      - article [ref=e72]:
+        - generic [ref=e73]: "3"
+        - generic [ref=e74]:
+          - 'link "Open post: GotaTun -- Mullvad''s WireGuard Implementation in Rust" [ref=e76] [cursor=pointer]':
+            - /url: https://mullvad.net/en/blog/announcing-gotatun-the-future-of-wireguard-at-mullvad-vpn
+            - text: GotaTun -- Mullvad's WireGuard Implementation in Rust
+          - generic [ref=e77]:
+            - generic [ref=e78]:
+              - img [ref=e79]
+              - text: 421 points
+            - link "View profile for km" [ref=e82] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=km
+              - text: by km
+            - generic [ref=e83]:
+              - img [ref=e84]
+              - text: 7h ago
+            - link "View 97 comments on this post" [ref=e87] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46324543
+              - img [ref=e88]
+              - text: 97 comments
+      - article [ref=e90]:
+        - generic [ref=e91]: "4"
+        - generic [ref=e92]:
+          - 'link "Open post: Amazon will allow ePub and PDF downloads for DRM-free eBooks" [ref=e94] [cursor=pointer]':
+            - /url: https://www.kdpcommunity.com/s/article/New-eBook-Download-Options-for-Readers-Coming-in-2026?language=en_US
+            - text: Amazon will allow ePub and PDF downloads for DRM-free eBooks
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - img [ref=e97]
+              - text: 385 points
+            - link "View profile for captn3m0" [ref=e100] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=captn3m0
+              - text: by captn3m0
+            - generic [ref=e101]:
+              - img [ref=e102]
+              - text: 9h ago
+            - link "View 207 comments on this post" [ref=e105] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46324078
+              - img [ref=e106]
+              - text: 207 comments
+      - article [ref=e108]:
+        - generic [ref=e109]: "5"
+        - generic [ref=e110]:
+          - 'link "Open post: Reverse Engineering Major US Airline''s PNR System and Accessing All Reservations" [ref=e112] [cursor=pointer]':
+            - /url: https://alexschapiro.com/security/vulnerability/2025/11/20/avelo-airline-reservation-api-vulnerability
+            - text: Reverse Engineering Major US Airline's PNR System and Accessing All Reservations
+          - generic [ref=e113]:
+            - generic [ref=e114]:
+              - img [ref=e115]
+              - text: 19 points
+            - link "View profile for bearsyankees" [ref=e118] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=bearsyankees
+              - text: by bearsyankees
+            - generic [ref=e119]:
+              - img [ref=e120]
+              - text: 1h ago
+            - link "View 3 comments on this post" [ref=e123] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46328992
+              - img [ref=e124]
+              - text: 3 comments
+      - article [ref=e126]:
+        - generic [ref=e127]: "6"
+        - generic [ref=e128]:
+          - 'link "Open post: Cursor Acquires Graphite" [ref=e130] [cursor=pointer]':
+            - /url: https://graphite.com/blog/graphite-joins-cursor
+            - text: Cursor Acquires Graphite
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - img [ref=e133]
+              - text: 153 points
+            - link "View profile for timvdalen" [ref=e136] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=timvdalen
+              - text: by timvdalen
+            - generic [ref=e137]:
+              - img [ref=e138]
+              - text: 3h ago
+            - link "View 92 comments on this post" [ref=e141] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46327325
+              - img [ref=e142]
+              - text: 92 comments
+      - article [ref=e144]:
+        - generic [ref=e145]: "7"
+        - generic [ref=e146]:
+          - 'link "Open post: The FreeBSD Foundation''s Laptop Support and Usability Project" [ref=e148] [cursor=pointer]':
+            - /url: https://github.com/FreeBSDFoundation/proj-laptop
+            - text: The FreeBSD Foundation's Laptop Support and Usability Project
+          - generic [ref=e149]:
+            - generic [ref=e150]:
+              - img [ref=e151]
+              - text: 92 points
+            - link "View profile for mikece" [ref=e154] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=mikece
+              - text: by mikece
+            - generic [ref=e155]:
+              - img [ref=e156]
+              - text: 4h ago
+            - link "View 33 comments on this post" [ref=e159] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46326519
+              - img [ref=e160]
+              - text: 33 comments
+      - article [ref=e162]:
+        - generic [ref=e163]: "8"
+        - generic [ref=e164]:
+          - 'link "Open post: Believe the Checkbook" [ref=e166] [cursor=pointer]':
+            - /url: https://robertgreiner.com/believe-the-checkbook/
+            - text: Believe the Checkbook
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - img [ref=e169]
+              - text: 52 points
+            - link "View profile for rg81" [ref=e172] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=rg81
+              - text: by rg81
+            - generic [ref=e173]:
+              - img [ref=e174]
+              - text: 3h ago
+            - link "View 19 comments on this post" [ref=e177] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46327133
+              - img [ref=e178]
+              - text: 19 comments
+      - article [ref=e180]:
+        - generic [ref=e181]: "9"
+        - generic [ref=e182]:
+          - 'link "Open post: Where Is GPT in the Chomsky Hierarchy?" [ref=e184] [cursor=pointer]':
+            - /url: https://fi-le.net/chomsky/
+            - text: Where Is GPT in the Chomsky Hierarchy?
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - img [ref=e187]
+              - text: 18 points
+            - link "View profile for fi-le" [ref=e190] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=fi-le
+              - text: by fi-le
+            - generic [ref=e191]:
+              - img [ref=e192]
+              - text: 4d ago
+            - link "View 9 comments on this post" [ref=e195] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46267862
+              - img [ref=e196]
+              - text: 9 comments
+      - article [ref=e198]:
+        - generic [ref=e199]: "10"
+        - generic [ref=e200]:
+          - 'link "Open post: Prepare for That Stupid World" [ref=e202] [cursor=pointer]':
+            - /url: https://ploum.net/2025-12-19-prepare-for-that-world.html
+            - text: Prepare for That Stupid World
+          - generic [ref=e203]:
+            - generic [ref=e204]:
+              - img [ref=e205]
+              - text: 83 points
+            - link "View profile for speckx" [ref=e208] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=speckx
+              - text: by speckx
+            - generic [ref=e209]:
+              - img [ref=e210]
+              - text: 2h ago
+            - link "View 46 comments on this post" [ref=e213] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46328109
+              - img [ref=e214]
+              - text: 46 comments
+      - article [ref=e216]:
+        - generic [ref=e217]: "11"
+        - generic [ref=e218]:
+          - 'link "Open post: Show HN: I Made Loom for Mobile" [ref=e220] [cursor=pointer]':
+            - /url: https://demoscope.app
+            - text: "Show HN: I Made Loom for Mobile"
+          - generic [ref=e221]:
+            - generic [ref=e222]:
+              - img [ref=e223]
+              - text: 26 points
+            - link "View profile for admtal" [ref=e226] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=admtal
+              - text: by admtal
+            - generic [ref=e227]:
+              - img [ref=e228]
+              - text: 2h ago
+            - link "View 22 comments on this post" [ref=e231] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46328203
+              - img [ref=e232]
+              - text: 22 comments
+      - article [ref=e234]:
+        - generic [ref=e235]: "12"
+        - generic [ref=e236]:
+          - 'link "Open post: Show HN: Stepped Actions – distributed workflow orchestration for Rails" [ref=e238] [cursor=pointer]':
+            - /url: https://github.com/envirobly/stepped
+            - text: "Show HN: Stepped Actions – distributed workflow orchestration for Rails"
+          - generic [ref=e239]:
+            - generic [ref=e240]:
+              - img [ref=e241]
+              - text: 68 points
+            - link "View profile for klevo" [ref=e244] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=klevo
+              - text: by klevo
+            - generic [ref=e245]:
+              - img [ref=e246]
+              - text: 5d ago
+            - link "View 9 comments on this post" [ref=e249] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46261884
+              - img [ref=e250]
+              - text: 9 comments
+      - article [ref=e252]:
+        - generic [ref=e253]: "13"
+        - generic [ref=e254]:
+          - 'link "Open post: We pwned X, Vercel, Cursor, and Discord through a supply-chain attack" [ref=e256] [cursor=pointer]':
+            - /url: https://gist.github.com/hackermondev/5e2cdc32849405fff6b46957747a2d28
+            - text: We pwned X, Vercel, Cursor, and Discord through a supply-chain attack
+          - generic [ref=e257]:
+            - generic [ref=e258]:
+              - img [ref=e259]
+              - text: 1058 points
+            - link "View profile for hackermondev" [ref=e262] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=hackermondev
+              - text: by hackermondev
+            - generic [ref=e263]:
+              - img [ref=e264]
+              - text: 1d ago
+            - link "View 387 comments on this post" [ref=e267] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46317098
+              - img [ref=e268]
+              - text: 387 comments
+      - article [ref=e270]:
+        - generic [ref=e271]: "14"
+        - generic [ref=e272]:
+          - 'link "Open post: 1.5 TB of VRAM on Mac Studio – RDMA over Thunderbolt 5" [ref=e274] [cursor=pointer]':
+            - /url: https://www.jeffgeerling.com/blog/2025/15-tb-vram-on-mac-studio-rdma-over-thunderbolt-5
+            - text: 1.5 TB of VRAM on Mac Studio – RDMA over Thunderbolt 5
+          - generic [ref=e275]:
+            - generic [ref=e276]:
+              - img [ref=e277]
+              - text: 552 points
+            - link "View profile for rbanffy" [ref=e280] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=rbanffy
+              - text: by rbanffy
+            - generic [ref=e281]:
+              - img [ref=e282]
+              - text: 20h ago
+            - link "View 202 comments on this post" [ref=e285] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46319657
+              - img [ref=e286]
+              - text: 202 comments
+      - article [ref=e288]:
+        - generic [ref=e289]: "15"
+        - generic [ref=e290]:
+          - 'link "Open post: Does my key fob have more computing power than the Lunar lander?" [ref=e292] [cursor=pointer]':
+            - /url: https://www.buzzsprout.com/2469780/episodes/18340142-17-does-my-key-fob-have-more-computing-power-than-the-lunar-lander
+            - text: Does my key fob have more computing power than the Lunar lander?
+          - generic [ref=e293]:
+            - generic [ref=e294]:
+              - img [ref=e295]
+              - text: 34 points
+            - link "View profile for jammcq" [ref=e298] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=jammcq
+              - text: by jammcq
+            - generic [ref=e299]:
+              - img [ref=e300]
+              - text: 5d ago
+            - link "View 29 comments on this post" [ref=e303] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46258377
+              - img [ref=e304]
+              - text: 29 comments
+      - article [ref=e306]:
+        - generic [ref=e307]: "16"
+        - generic [ref=e308]:
+          - 'link "Open post: Getting bitten by Intel''s poor naming schemes" [ref=e310] [cursor=pointer]':
+            - /url: https://lorendb.dev/posts/getting-bitten-by-poor-naming-schemes/
+            - text: Getting bitten by Intel's poor naming schemes
+          - generic [ref=e311]:
+            - generic [ref=e312]:
+              - img [ref=e313]
+              - text: 241 points
+            - link "View profile for LorenDB" [ref=e316] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=LorenDB
+              - text: by LorenDB
+            - generic [ref=e317]:
+              - img [ref=e318]
+              - text: 13h ago
+            - link "View 130 comments on this post" [ref=e321] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46322540
+              - img [ref=e322]
+              - text: 130 comments
+      - article [ref=e324]:
+        - generic [ref=e325]: "17"
+        - generic [ref=e326]:
+          - 'link "Open post: TikTok Deal Is the Shittiest Possible Outcome, Making Everything Worse" [ref=e328] [cursor=pointer]':
+            - /url: https://www.techdirt.com/2025/12/19/tiktok-deal-done-and-its-somehow-the-shittiest-possible-outcome-making-everything-worse/
+            - text: TikTok Deal Is the Shittiest Possible Outcome, Making Everything Worse
+          - generic [ref=e329]:
+            - generic [ref=e330]:
+              - img [ref=e331]
+              - text: 231 points
+            - link "View profile for lateforwork" [ref=e334] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=lateforwork
+              - text: by lateforwork
+            - generic [ref=e335]:
+              - img [ref=e336]
+              - text: 3h ago
+            - link "View 197 comments on this post" [ref=e339] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46327406
+              - img [ref=e340]
+              - text: 197 comments
+      - article [ref=e342]:
+        - generic [ref=e343]: "18"
+        - generic [ref=e344]:
+          - 'link "Open post: Building a Transparent Keyserver" [ref=e346] [cursor=pointer]':
+            - /url: https://words.filippo.io/keyserver-tlog/
+            - text: Building a Transparent Keyserver
+          - generic [ref=e347]:
+            - generic [ref=e348]:
+              - img [ref=e349]
+              - text: 38 points
+            - link "View profile for noident" [ref=e352] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=noident
+              - text: by noident
+            - generic [ref=e353]:
+              - img [ref=e354]
+              - text: 4h ago
+            - link "View 13 comments on this post" [ref=e357] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46326506
+              - img [ref=e358]
+              - text: 13 comments
+      - article [ref=e360]:
+        - generic [ref=e361]: "19"
+        - generic [ref=e362]:
+          - 'link "Open post: Noclip.website – A digital museum of video game levels" [ref=e364] [cursor=pointer]':
+            - /url: https://noclip.website/
+            - text: Noclip.website – A digital museum of video game levels
+          - generic [ref=e365]:
+            - generic [ref=e366]:
+              - img [ref=e367]
+              - text: 406 points
+            - link "View profile for ivmoreau" [ref=e370] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=ivmoreau
+              - text: by ivmoreau
+            - generic [ref=e371]:
+              - img [ref=e372]
+              - text: 16h ago
+            - link "View 52 comments on this post" [ref=e375] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46321619
+              - img [ref=e376]
+              - text: 52 comments
+      - article [ref=e378]:
+        - generic [ref=e379]: "20"
+        - generic [ref=e380]:
+          - 'link "Open post: History LLMs: Models trained exclusively on pre-1913 texts" [ref=e382] [cursor=pointer]':
+            - /url: https://github.com/DGoettlich/history-llms
+            - text: "History LLMs: Models trained exclusively on pre-1913 texts"
+          - generic [ref=e383]:
+            - generic [ref=e384]:
+              - img [ref=e385]
+              - text: 682 points
+            - link "View profile for iamwil" [ref=e388] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=iamwil
+              - text: by iamwil
+            - generic [ref=e389]:
+              - img [ref=e390]
+              - text: 20h ago
+            - link "View 331 comments on this post" [ref=e393] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46319826
+              - img [ref=e394]
+              - text: 331 comments
+      - article [ref=e396]:
+        - generic [ref=e397]: "21"
+        - generic [ref=e398]:
+          - 'link "Open post: How to think about durable execution" [ref=e400] [cursor=pointer]':
+            - /url: https://hatchet.run/blog/durable-execution
+            - text: How to think about durable execution
+          - generic [ref=e401]:
+            - generic [ref=e402]:
+              - img [ref=e403]
+              - text: 80 points
+            - link "View profile for abelanger" [ref=e406] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=abelanger
+              - text: by abelanger
+            - generic [ref=e407]:
+              - img [ref=e408]
+              - text: 7d ago
+            - link "View 28 comments on this post" [ref=e411] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46245238
+              - img [ref=e412]
+              - text: 28 comments
+      - article [ref=e414]:
+        - generic [ref=e415]: "22"
+        - generic [ref=e416]:
+          - 'link "Open post: AMD Ryzen 7 5800X3D sells for more than 9800X3D, enthusiasts flock to AM4 DDR4" [ref=e418] [cursor=pointer]':
+            - /url: https://www.tomshardware.com/pc-components/cpus/amds-legacy-ryzen-7-5800x3d-chips-now-sell-for-up-to-usd800-more-than-a-new-9800x3d-am4-chip-costs-twice-as-much-as-msrp-as-enthusiasts-flock-to-old-ddr4-memory
+            - text: AMD Ryzen 7 5800X3D sells for more than 9800X3D, enthusiasts flock to AM4 DDR4
+          - generic [ref=e419]:
+            - generic [ref=e420]:
+              - img [ref=e421]
+              - text: 30 points
+            - link "View profile for walterbell" [ref=e424] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=walterbell
+              - text: by walterbell
+            - generic [ref=e425]:
+              - img [ref=e426]
+              - text: 2h ago
+            - link "View 26 comments on this post" [ref=e429] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46328288
+              - img [ref=e430]
+              - text: 26 comments
+      - article [ref=e432]:
+        - generic [ref=e433]: "23"
+        - generic [ref=e434]:
+          - 'link "Open post: Show HN: Linggen – A local-first memory layer for your AI (Cursor, Zed, Claude)" [ref=e436] [cursor=pointer]':
+            - /url: https://github.com/linggen/linggen
+            - text: "Show HN: Linggen – A local-first memory layer for your AI (Cursor, Zed, Claude)"
+          - generic [ref=e437]:
+            - generic [ref=e438]:
+              - img [ref=e439]
+              - text: 3 points
+            - link "View profile for linggen" [ref=e442] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=linggen
+              - text: by linggen
+            - generic [ref=e443]:
+              - img [ref=e444]
+              - text: 1h ago
+            - link "View 2 comments on this post" [ref=e447] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46328769
+              - img [ref=e448]
+              - text: 2 comments
+      - article [ref=e450]:
+        - generic [ref=e451]: "24"
+        - generic [ref=e452]:
+          - 'link "Open post: Beginning January 2026, all ACM publications will be made open access" [ref=e454] [cursor=pointer]':
+            - /url: https://dl.acm.org/openaccess
+            - text: Beginning January 2026, all ACM publications will be made open access
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - img [ref=e457]
+              - text: 1932 points
+            - link "View profile for Kerrick" [ref=e460] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=Kerrick
+              - text: by Kerrick
+            - generic [ref=e461]:
+              - img [ref=e462]
+              - text: 1d ago
+            - link "View 232 comments on this post" [ref=e465] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46313991
+              - img [ref=e466]
+              - text: 232 comments
+      - article [ref=e468]:
+        - generic [ref=e469]: "25"
+        - generic [ref=e470]:
+          - 'link "Open post: From Zero to QED: An informal introduction to formality with Lean 4" [ref=e472] [cursor=pointer]':
+            - /url: https://sdiehl.github.io/zero-to-qed/01_introduction.html
+            - text: "From Zero to QED: An informal introduction to formality with Lean 4"
+          - generic [ref=e473]:
+            - generic [ref=e474]:
+              - img [ref=e475]
+              - text: 126 points
+            - link "View profile for rwosync" [ref=e478] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=rwosync
+              - text: by rwosync
+            - generic [ref=e479]:
+              - img [ref=e480]
+              - text: 5d ago
+            - link "View 16 comments on this post" [ref=e483] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46259343
+              - img [ref=e484]
+              - text: 16 comments
+      - article [ref=e486]:
+        - generic [ref=e487]: "26"
+        - generic [ref=e488]:
+          - 'link "Open post: GPT-5.2-Codex" [ref=e490] [cursor=pointer]':
+            - /url: https://openai.com/index/introducing-gpt-5-2-codex/
+            - text: GPT-5.2-Codex
+          - generic [ref=e491]:
+            - generic [ref=e492]:
+              - img [ref=e493]
+              - text: 559 points
+            - link "View profile for meetpateltech" [ref=e496] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=meetpateltech
+              - text: by meetpateltech
+            - generic [ref=e497]:
+              - img [ref=e498]
+              - text: 1d ago
+            - link "View 300 comments on this post" [ref=e501] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46316367
+              - img [ref=e502]
+              - text: 300 comments
+      - article [ref=e504]:
+        - generic [ref=e505]: "27"
+        - generic [ref=e506]:
+          - 'link "Open post: Proton Leaves Switzerland" [ref=e508] [cursor=pointer]':
+            - /url: https://www.nzz.ch/technologie/proton-ceo-andy-yen-wer-gesetzgebung-der-polizei-ueberlaesst-sollte-sich-nicht-wundern-wenn-er-eines-tages-in-einem-polizeistaat-aufwacht-ld.1916779
+            - text: Proton Leaves Switzerland
+          - generic [ref=e509]:
+            - generic [ref=e510]:
+              - img [ref=e511]
+              - text: 7 points
+            - link "View profile for _tk_" [ref=e514] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=_tk_
+              - text: by _tk_
+            - generic [ref=e515]:
+              - img [ref=e516]
+              - text: 7m ago
+            - link "View 0 comments on this post" [ref=e519] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46329654
+              - img [ref=e520]
+              - text: 0 comments
+      - article [ref=e522]:
+        - generic [ref=e523]: "28"
+        - generic [ref=e524]:
+          - 'link "Open post: How China built its ‘Manhattan Project’ to rival the West in AI chips" [ref=e526] [cursor=pointer]':
+            - /url: https://www.japantimes.co.jp/business/2025/12/18/tech/china-west-ai-chips/
+            - text: How China built its ‘Manhattan Project’ to rival the West in AI chips
+          - generic [ref=e527]:
+            - generic [ref=e528]:
+              - img [ref=e529]
+              - text: 441 points
+            - link "View profile for artninja1988" [ref=e532] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=artninja1988
+              - text: by artninja1988
+            - generic [ref=e533]:
+              - img [ref=e534]
+              - text: 1d ago
+            - link "View 535 comments on this post" [ref=e537] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46316907
+              - img [ref=e538]
+              - text: 535 comments
+      - article [ref=e540]:
+        - generic [ref=e541]: "29"
+        - generic [ref=e542]:
+          - 'link "Open post: Designing a Passive Lidar Detector Device" [ref=e544] [cursor=pointer]':
+            - /url: https://www.atredis.com/blog/2025/11/20/designing-a-passive-lidar-detection-sensor
+            - text: Designing a Passive Lidar Detector Device
+          - generic [ref=e545]:
+            - generic [ref=e546]:
+              - img [ref=e547]
+              - text: 62 points
+            - link "View profile for speckx" [ref=e550] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=speckx
+              - text: by speckx
+            - generic [ref=e551]:
+              - img [ref=e552]
+              - text: 3d ago
+            - link "View 5 comments on this post" [ref=e555] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46281355
+              - img [ref=e556]
+              - text: 5 comments
+      - article [ref=e558]:
+        - generic [ref=e559]: "30"
+        - generic [ref=e560]:
+          - 'link "Open post: Prompt caching for cheaper LLM tokens" [ref=e562] [cursor=pointer]':
+            - /url: https://ngrok.com/blog/prompt-caching/
+            - text: Prompt caching for cheaper LLM tokens
+          - generic [ref=e563]:
+            - generic [ref=e564]:
+              - img [ref=e565]
+              - text: 237 points
+            - link "View profile for samwho" [ref=e568] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/user?id=samwho
+              - text: by samwho
+            - generic [ref=e569]:
+              - img [ref=e570]
+              - text: 3d ago
+            - link "View 56 comments on this post" [ref=e573] [cursor=pointer]:
+              - /url: https://news.ycombinator.com/item?id=46290620
+              - img [ref=e574]
+              - text: 56 comments
+    - generic [ref=e576]:
+      - button "Previous" [disabled] [ref=e577]:
+        - img [ref=e578]
+        - text: Previous
+      - generic [ref=e580]: Page 1 of 17
+      - button "Next" [ref=e581] [cursor=pointer]:
+        - text: Next
+        - img [ref=e582]
+```

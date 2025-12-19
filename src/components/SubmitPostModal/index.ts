@@ -1,1 +1,1 @@
-export { default as SubmitPostModal } from './SubmitPostModal'
+export { default as SubmitPostModal } from "./SubmitPostModal";

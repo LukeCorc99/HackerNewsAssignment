@@ -1,5 +1,5 @@
 .wrap {
-  max-width: 960px;
+  max-width: 60rem;
   margin: 0 auto;
 }
 
@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0 5px;
+  padding: 1.25rem 0 0.3rem;
 }
 
 .pickerWrapper {
@@ -18,24 +18,17 @@
 .pickerDisplay {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 0.5rem;
+  padding: 0.75rem;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(0, 0, 0, 0.03);
-  color: rgba(0, 0, 0, 0.9);
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 120ms ease, transform 120ms ease;
+  transition:
+    background-color 120ms ease,
+    transform 120ms ease;
   outline: none;
-}
-
-.pickerDisplay:focus {
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-.pickerDisplay:focus-visible {
-  border-color: rgba(0, 0, 0, 0.08);
 }
 
 .pickerIcon {
@@ -45,78 +38,61 @@
 
 .pickerText {
   font-weight: 650;
-  font-size: 13px;
+  font-size: 1rem;
 }
 
 .chev {
   display: inline-flex;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.pickerSelect {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  font-size: 13px;
 }
 
 .pickerWrapper:hover .pickerDisplay {
-  background: rgba(0, 0, 0, 0.07);
-  transform: translateY(-1px);
+  transform: translateY(-0.1rem);
 }
-
 
 .viewToggle {
   display: inline-flex;
-  padding: 4px;
+  padding: 0.25rem;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .viewBtn {
   border: 0;
   background: transparent;
-  padding: 8px 10px;
+  padding: 0.5rem 0.7rem;
   border-radius: 999px;
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.72);
-  transition: background-color 120ms ease, transform 120ms ease, color 120ms ease;
+  color: rgba(0, 0, 0, 0.7);
+  transition:
+    background-color 120ms ease,
+    transform 120ms ease,
+    color 120ms ease;
 }
 
 .viewBtn:hover {
-  background: rgba(0, 0, 0, 0.06);
-  color: rgba(0, 0, 0, 0.95);
-  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.9);
+  transform: translateY(-0.06rem);
 }
 
-.viewBtn[aria-pressed='true'] {
+.viewBtn[aria-pressed="true"] {
   background: white;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
   transform: translateY(0);
-}
-
-.viewBtn:focus-visible {
-  outline: 2px solid #ff6600;
-  outline-offset: 2px;
 }
 
 .posts {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.5rem;
 }
 
 .posts.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
+  gap: 1rem;
 }
 
 .loading {
@@ -124,15 +100,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 60px 20px;
+  gap: 1rem;
+  padding: 4rem;
   color: rgba(0, 0, 0, 0.6);
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255, 102, 0, 0.1);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.2rem solid rgba(255, 102, 0, 0.1);
   border-top-color: #ff6600;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -148,15 +124,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 60px 20px;
+  gap: 1rem;
+  padding: 4rem;
   text-align: center;
   color: rgba(0, 0, 0, 0.7);
 }
 
 .retryBtn {
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: white;
   color: #ff6600;
@@ -168,14 +144,14 @@
 .retryBtn:hover {
   background: rgba(255, 102, 0, 0.05);
   border-color: rgba(255, 102, 0, 0.3);
-  transform: translateY(-1px);
+  transform: translateY(-0.1rem);
 }
 
 .empty {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 4rem;
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
@@ -184,23 +160,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 32px 0;
-  margin-top: 20px;
+  gap: 1.5rem;
+  padding: 2rem;
+  margin-top: 1rem;
 }
 
 .paginationBtn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 8px;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: white;
   color: rgba(0, 0, 0, 0.8);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 0.9rem;
   cursor: pointer;
+  font-family: inherit;
   transition: all 150ms ease;
 }
 
@@ -208,7 +185,7 @@
   background: rgba(255, 102, 0, 0.05);
   border-color: rgba(255, 102, 0, 0.3);
   color: #ff6600;
-  transform: translateY(-1px);
+  transform: translateY(-0.06rem);
 }
 
 .paginationBtn:disabled {
@@ -217,7 +194,7 @@
 }
 
 .pageInfo {
-  font-size: 14px;
+  font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.6);
   font-weight: 500;
 }
@@ -225,18 +202,19 @@
 .dropdown {
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
-  padding: 6px 0;
-  min-width: 180px;
-  z-index: 1000;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 0.25rem 0.75rem rgba(0, 0, 0, 0.12),
+    0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+  padding: 0.4rem 0;
+  min-width: 11rem;
   animation: slideDown 150ms ease;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-0.5rem);
   }
   to {
     opacity: 1;
@@ -245,15 +223,15 @@
 }
 
 .dropdownItem {
-  padding: 10px 14px;
-  font-size: 13px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.83rem;
   color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
   transition: background-color 80ms ease;
   outline: none;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
 }
 
 .dropdownItemIcon {
@@ -266,30 +244,36 @@
 
 .dropdownItem:hover {
   background: rgba(0, 0, 0, 0.04);
-  color: rgba(0, 0, 0, 0.95);
+  color: rgba(0, 0, 0, 0.9);
 }
 
 .dropdownItem:hover .dropdownItemIcon {
   color: rgba(0, 0, 0, 0.8);
 }
 
-.dropdownItem[data-state='checked'] {
+.dropdownItem[data-state="checked"] {
   background: rgba(255, 102, 0, 0.1);
   color: #ff6600;
   font-weight: 600;
 }
 
-.dropdownItem[data-state='checked'] .dropdownItemIcon {
+.dropdownItem[data-state="checked"] .dropdownItemIcon {
   color: #ff6600;
 }
 
-.dropdownItem[data-state='checked']:hover {
+.dropdownItem[data-state="checked"]:hover {
   background: rgba(255, 102, 0, 0.15);
 }
 
-
 [data-radix-select-item-indicator] {
   display: none !important;
+}
+
+@media (max-width: 1100px) {
+  .wrap {
+    max-width: 50rem;
+    padding: 0.6rem 0.5rem;
+  }
 }
 
 @media (max-width: 770px) {
@@ -300,12 +284,12 @@
 
 @media (max-width: 768px) {
   .wrap {
-    padding: 10px 8px;
+    padding: 0.6rem 0.5rem;
   }
 
   .topbar {
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .posts.grid {
@@ -314,7 +298,7 @@
 
   .pagination {
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   .paginationBtn {

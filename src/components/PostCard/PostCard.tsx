@@ -1,46 +1,67 @@
-import { ExternalLink, MessageSquare, TrendingUp, Clock, Trash2, Edit2 } from 'lucide-react'
-import type { PostCardProps } from '../../types'
-import styles from './PostCard.module.css'
+import {
+  ExternalLink,
+  MessageSquare,
+  TrendingUp,
+  Clock,
+  Trash2,
+  Edit2,
+} from "lucide-react";
+import type { PostCardProps } from "../../types";
+import styles from "./PostCard.module.css";
 
 const getTimeAgo = (timestamp: number): string => {
-  const now = Date.now() / 1000
-  const diffInSeconds = now - timestamp
-  
-  const minutes = Math.floor(diffInSeconds / 60)
-  const hours = Math.floor(diffInSeconds / 3600)
-  const days = Math.floor(diffInSeconds / 86400)
-  
-  if (minutes < 60) return `${minutes}m ago`
-  if (hours < 24) return `${hours}h ago`
-  return `${days}d ago`
-}
+  const now = Date.now() / 1000;
+  const diffInSeconds = now - timestamp;
 
+  const minutes = Math.floor(diffInSeconds / 60);
+  const hours = Math.floor(diffInSeconds / 3600);
+  const days = Math.floor(diffInSeconds / 86400);
 
-export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, onDelete }: PostCardProps) {
-  const formattedTime = getTimeAgo(story.time)
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  return `${days}d ago`;
+};
 
-  const getDomain = (url?: string) => {
-    if (!url) return null
-    try {
-      const domain = new URL(url).hostname
-      return domain.replace('www.', '')
-    } catch {
-      return null
-    }
+const getDomain = (url?: string): string | null => {
+  if (!url) return null;
+  try {
+    const domain = new URL(url).hostname;
+    return domain.replace("www.", "");
+  } catch {
+    return null;
   }
+};
 
-  const domain = getDomain(story.url)
-  const storyUrl = story.url || `https://news.ycombinator.com/item?id=${story.id}`
-  const commentsUrl = `https://news.ycombinator.com/item?id=${story.id}`
+export default function PostCard({
+  story,
+  viewMode,
+  rank,
+  isUserPost,
+  isLoggedIn,
+  onEdit,
+  onDelete,
+  username,
+}: PostCardProps) {
+  const formattedTime = getTimeAgo(story.time);
+  const domain = getDomain(story.url);
+
+  const websitePostUrl = `https://news.ycombinator.com/item?id=${story.id}`;
+  const externalPostUrl = story.url || websitePostUrl;
+  const userProfileUrl = `https://news.ycombinator.com/user?id=${story.by}`;
+
+  const canEditPost = isUserPost && isLoggedIn && username === story.by;
 
   return (
-    <article className={`${styles.card} ${styles[viewMode]}`} data-testid="post-card">
+    <article
+      className={`${styles.card} ${styles[viewMode]}`}
+      data-testid="post-card"
+    >
       <div className={styles.rank}>{rank}</div>
-      
+
       {domain && (
-        <a 
-          href={storyUrl}
-          target="_blank" 
+        <a
+          href={externalPostUrl}
+          target="_blank"
           rel="noopener noreferrer"
           className={styles.domain}
           aria-label={`Visit ${domain}`}
@@ -50,12 +71,12 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
           {domain}
         </a>
       )}
-      
+
       <div className={styles.content}>
         <div className={styles.header}>
-          <a 
-            href={storyUrl} 
-            target="_blank" 
+          <a
+            href={externalPostUrl}
+            target="_blank"
             rel="noopener noreferrer"
             className={styles.title}
             aria-label={`Open post: ${story.title}`}
@@ -70,9 +91,9 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
             <TrendingUp size={14} aria-hidden="true" />
             {story.score} points
           </span>
-          
-          <a 
-            href={`https://news.ycombinator.com/user?id=${story.by}`}
+
+          <a
+            href={userProfileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.metaItem}
@@ -81,15 +102,15 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
           >
             by {story.by}
           </a>
-          
+
           <span className={styles.metaItemStatic}>
             <Clock size={14} aria-hidden="true" />
             {formattedTime}
           </span>
-          
+
           {story.descendants !== undefined && (
-            <a 
-              href={commentsUrl}
+            <a
+              href={websitePostUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.comments}
@@ -101,7 +122,7 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
             </a>
           )}
 
-          {isUserPost && (
+          {canEditPost && (
             <div className={styles.actions}>
               <button
                 className={styles.metaItem}
@@ -126,5 +147,5 @@ export default function PostCard({ story, viewMode, rank, isUserPost, onEdit, on
         </div>
       </div>
     </article>
-  )
+  );
 }

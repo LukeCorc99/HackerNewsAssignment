@@ -1,61 +1,111 @@
-import { SquarePen, UserRound, ChevronDown, LogIn, UserPlus, Search } from 'lucide-react'
-import { useState, useRef, useEffect } from 'react'
-import type { HeaderProps } from '../../types'
-import styles from './Header.module.css'
+import {
+  SquarePen,
+  UserRound,
+  ChevronDown,
+  LogIn,
+  UserPlus,
+  Search,
+} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import type { HeaderProps } from "../../types";
+import styles from "./Header.module.css";
 
-export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSearch, onSearchSubmit, externalSearchQuery = '' }: HeaderProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [logoutFeedback, setLogoutFeedback] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const searchInputRef = useRef<HTMLInputElement>(null)
+
+const SEARCH_PLACEHOLDER = "Search posts...";
+
+export default function Header({
+  onLogin,
+  onSubmit,
+  isLoggedIn,
+  onLogout,
+  onSearchSubmit,
+  externalSearchQuery = "",
+}: HeaderProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [logoutFeedback, setLogoutFeedback] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
 
   useEffect(() => {
-    setSearchQuery(externalSearchQuery)
-  }, [externalSearchQuery])
+    setSearchQuery(externalSearchQuery);
+  }, [externalSearchQuery]);
 
   useEffect(() => {
     if (isMobileSearchOpen && searchInputRef.current) {
-      searchInputRef.current.focus()
+      searchInputRef.current.focus();
     }
-  }, [isMobileSearchOpen])
+  }, [isMobileSearchOpen]);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false)
+    const clickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
       }
-    }
+    };
+    document.addEventListener("mousedown", clickOutside);
+    return () => document.removeEventListener("mousedown", clickOutside);
+  }, []);
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
 
-  const handleDropdownAction = (action: 'login' | 'register') => {
-    onLogin(action)
-    setIsDropdownOpen(false)
-  }
+  const dropdownAction = (action: "login" | "register") => {
+    onLogin(action);
+    setIsDropdownOpen(false);
+  };
 
-  const handleLogout = () => {
-    setLogoutFeedback(true)
+  const logOut = () => {
+    setLogoutFeedback(true);
     setTimeout(() => {
-      setLogoutFeedback(false)
-      onLogout()
-    }, 1000)
-  }
+      setLogoutFeedback(false);
+      onLogout();
+    }, 1000);
+  };
 
-  const handleSearchSubmit = () => {
+  const searchSubmit = () => {
     if (searchQuery.trim()) {
-      if (onSearchSubmit) {
-        onSearchSubmit(searchQuery)
-      } else {
-        onSearch(searchQuery)
-      }
+      onSearchSubmit?.(searchQuery);
     } else {
-      window.location.href = '/'
+      window.location.href = "/";
     }
-  }
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      searchSubmit();
+    }
+  };
+
+  const handleMobileSearchKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      searchSubmit();
+      setIsMobileSearchOpen(false);
+    }
+  };
+
+  const SearchInput = ({
+    onKeyDown,
+  }: {
+    onKeyDown: (e: React.KeyboardEvent) => void;
+  }) => (
+    <div className={styles.searchWrapper}>
+      <Search size={16} className={styles.searchIcon} aria-hidden="true" />
+      <input
+        ref={searchInputRef}
+        type="text"
+        placeholder={SEARCH_PLACEHOLDER}
+        className={styles.searchInput}
+        aria-label="Search posts"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyDown={onKeyDown}
+      />
+    </div>
+  );
 
   return (
     <header className={styles.header}>
@@ -64,8 +114,8 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
           type="button"
           className={styles.brand}
           onClick={() => {
-            sessionStorage.setItem('selectedFeedType', 'top')
-            window.location.href = '/'
+            sessionStorage.setItem("selectedFeedType", "top");
+            window.location.href = "/";
           }}
           aria-label="Go to homepage"
           title="Go to homepage"
@@ -77,23 +127,7 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
         </button>
       </div>
 
-      <div className={styles.searchWrapper}>
-        <Search size={16} className={styles.searchIcon} aria-hidden="true" />
-        <input
-          ref={searchInputRef}
-          type="text"
-          placeholder="Search posts..."
-          className={styles.searchInput}
-          aria-label="Search posts"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSearchSubmit()
-            }
-          }}
-        />
-      </div>
+      <SearchInput onKeyDown={handleSearchKeyDown} />
 
       <div className={styles.actions} aria-label="User actions">
         <button
@@ -131,7 +165,9 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
             <ChevronDown
               size={16}
               aria-hidden="true"
-              className={isDropdownOpen ? styles.chevronOpen : styles.chevronClosed}
+              className={
+                isDropdownOpen ? styles.chevronOpen : styles.chevronClosed
+              }
             />
           </button>
 
@@ -140,21 +176,22 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
               {isLoggedIn ? (
                 <button
                   type="button"
-                  className={styles.dropdownItem}
-                  onClick={handleLogout}
+                  className={`${styles.dropdownItem} ${
+                    logoutFeedback ? styles.loggingOut : ""
+                  }`}
+                  onClick={logOut}
                   data-testid="dropdown-logout"
                   role="menuitem"
-                  style={{ opacity: logoutFeedback ? 0.5 : 1, transition: 'opacity 300ms ease' }}
                 >
-                  <LogIn size={16} style={{ transform: 'scaleX(-1)' }} />
-                  {logoutFeedback ? 'Logging out...' : 'Log out'}
+                  <LogIn size={16} className={styles.logoutIcon} />
+                  {logoutFeedback ? "Logging out..." : "Log out"}
                 </button>
               ) : (
                 <>
                   <button
                     type="button"
                     className={styles.dropdownItem}
-                    onClick={() => handleDropdownAction('login')}
+                    onClick={() => dropdownAction("login")}
                     data-testid="dropdown-login"
                     role="menuitem"
                   >
@@ -164,7 +201,7 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
                   <button
                     type="button"
                     className={styles.dropdownItem}
-                    onClick={() => handleDropdownAction('register')}
+                    onClick={() => dropdownAction("register")}
                     data-testid="dropdown-register"
                     role="menuitem"
                   >
@@ -180,27 +217,9 @@ export default function Header({ onLogin, onSubmit, isLoggedIn, onLogout, onSear
 
       {isMobileSearchOpen && (
         <div className={styles.mobileSearchDropdown}>
-          <div className={styles.mobileSearchWrapper}>
-            <Search size={16} className={styles.searchIcon} aria-hidden="true" />
-            <input
-              ref={searchInputRef}
-              type="text"
-              placeholder="Search posts..."
-              className={styles.searchInput}
-              aria-label="Search posts"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearchSubmit()
-                  setIsMobileSearchOpen(false)
-                }
-              }}
-              autoFocus
-            />
-          </div>
+          <SearchInput onKeyDown={handleMobileSearchKeyDown} />
         </div>
       )}
-    </header >
-  )
+    </header>
+  );
 }

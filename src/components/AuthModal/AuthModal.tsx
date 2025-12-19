@@ -1,71 +1,89 @@
-import { useState } from 'react'
-import { X, LogIn, UserPlus } from 'lucide-react'
-import styles from './AuthModal.module.css'
-import type { AuthModalProps } from '../../types'
+import { useState } from "react";
+import { X, LogIn, UserPlus } from "lucide-react";
+import styles from "./AuthModal.module.css";
+import type { AuthModalProps } from "../../types";
 
 
-export default function AuthModal({ action, onClose, onSuccess }: AuthModalProps) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+const MIN_PASSWORD_LENGTH = 6;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+const validateForm = (
+  username: string,
+  password: string,
+  confirmPassword: string,
+  action: "login" | "register"
+): string => {
+  if (!username.trim()) return "Username is required";
+  if (!password) return "Password is required";
+  if (action === "register" && password !== confirmPassword)
+    return "Passwords do not match";
+  if (action === "register" && password.length < MIN_PASSWORD_LENGTH)
+    return `Password must be at least ${MIN_PASSWORD_LENGTH} characters`;
+  return "";
+};
 
-    if (!username.trim()) {
-      setError('Username is required')
-      return
+
+export default function AuthModal({
+  action,
+  onClose,
+  onSuccess,
+}: AuthModalProps) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const isLogin = action === "login";
+  const successMessage = isLogin
+    ? "Successfully logged in!"
+    : "Account created successfully!";
+  const title = isLogin ? "Login" : "Create Account";
+  const submitLabel = isLogin ? "Login" : "Create Account";
+  const submitIcon = isLogin ? <LogIn size={18} /> : <UserPlus size={18} />;
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    const validationError = validateForm(
+      username,
+      password,
+      confirmPassword,
+      action
+    );
+    if (validationError) {
+      setError(validationError);
+      return;
     }
-    if (!password) {
-      setError('Password is required')
-      return
-    }
-    if (action === 'register' && password !== confirmPassword) {
-      setError('Passwords do not match')
-      return
-    }
-    if (action === 'register' && password.length < 6) {
-      setError('Password must be at least 6 characters')
-      return
-    }
 
-    setSubmitted(true)
+    setSubmitted(true);
     try {
-      localStorage.setItem('username', username)
+      localStorage.setItem("username", username);
     } catch (error) {
-      console.error('Error saving username:', error)
+      console.error("Error saving username:", error);
     }
     setTimeout(() => {
-      onSuccess(action)
-    }, 1500)
-  }
+      onSuccess(action);
+    }, 1500);
+  };
 
   if (submitted) {
     return (
       <div className={styles.overlay} onClick={onClose}>
         <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
           <div className={styles.success}>
-            <p className={styles.successText}>
-              {action === 'login'
-                ? 'Successfully logged in!'
-                : 'Account created successfully!'}
-            </p>
+            <p className={styles.successText}>{successMessage}</p>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2 className={styles.title}>
-            {action === 'login' ? 'Login' : 'Create Account'}
-          </h2>
+          <h2 className={styles.title}>{title}</h2>
           <button
             type="button"
             className={styles.closeBtn}
@@ -77,7 +95,7 @@ export default function AuthModal({ action, onClose, onSuccess }: AuthModalProps
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={submit} className={styles.form}>
           {error && <div className={styles.error}>{error}</div>}
 
           <div className={styles.formGroup}>
@@ -110,7 +128,7 @@ export default function AuthModal({ action, onClose, onSuccess }: AuthModalProps
             />
           </div>
 
-          {action === 'register' && (
+          {!isLogin && (
             <div className={styles.formGroup}>
               <label htmlFor="confirmPassword" className={styles.label}>
                 Confirm Password
@@ -127,21 +145,16 @@ export default function AuthModal({ action, onClose, onSuccess }: AuthModalProps
             </div>
           )}
 
-          <button type="submit" className={styles.submitBtn} data-testid="auth-submit">
-            {action === 'login' ? (
-              <>
-                <LogIn size={18} />
-                Login
-              </>
-            ) : (
-              <>
-                <UserPlus size={18} />
-                Create Account
-              </>
-            )}
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            data-testid="auth-submit"
+          >
+            {submitIcon}
+            {submitLabel}
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }

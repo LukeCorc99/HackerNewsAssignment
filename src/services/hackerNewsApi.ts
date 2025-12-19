@@ -1,42 +1,41 @@
-import type { FeedType, HackerNewsStory } from '../types'
+import type { FeedType, HackerNewsStory } from "../types";
 
-const BASE_URL = 'https://hacker-news.firebaseio.com/v0'
+const BASE_URL = "https://hacker-news.firebaseio.com/v0";
 
-export const fetchStoryIds = async (
-    type: FeedType
-): Promise<number[]> => {
-    const endpointMap: Record<FeedType, string> = {
-        top: 'topstories',
-        new: 'newstories',
-        ask: 'askstories',
-        show: 'showstories',
-        job: 'jobstories',
-    }
+const getEndpoint = (type: FeedType): string => {
+  const map: Record<FeedType, string> = {
+    top: "topstories",
+    new: "newstories",
+    ask: "askstories",
+    show: "showstories",
+    job: "jobstories",
+  };
+  return map[type];
+};
 
-    const endpoint = endpointMap[type]
-    const response = await fetch(`${BASE_URL}/${endpoint}.json`)
+const fetchJson = async <T>(url: string, errorMessage: string): Promise<T> => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(errorMessage);
+  return response.json();
+};
 
-    if (!response.ok) {
-        throw new Error(`Failed to fetch ${type} stories`)
-    }
+export const fetchStoryIds = (type: FeedType): Promise<number[]> =>
+  fetchJson(
+    `${BASE_URL}/${getEndpoint(type)}.json`,
+    `Failed to fetch ${type} stories`,
+  );
 
-    return response.json()
-}
+export const fetchStory = (id: number): Promise<HackerNewsStory> =>
+  fetchJson(`${BASE_URL}/item/${id}.json`, `Failed to fetch story ${id}`);
 
-export const fetchStory = async (id: number): Promise<HackerNewsStory> => {
-    const response = await fetch(`${BASE_URL}/item/${id}.json`)
-
-    if (!response.ok) {
-        throw new Error(`Failed to fetch story ${id}`)
-    }
-
-    return response.json()
-}
-
-export const fetchStories = async (ids: number[]): Promise<HackerNewsStory[]> => {
-    const results = await Promise.allSettled(ids.map((id) => fetchStory(id)))
-
-    return results
-        .filter((r): r is PromiseFulfilledResult<HackerNewsStory> => r.status === 'fulfilled')
-        .map((r) => r.value)
-}
+export const fetchStories = async (
+  ids: number[],
+): Promise<HackerNewsStory[]> => {
+  const results = await Promise.allSettled(ids.map(fetchStory));
+  return results
+    .filter(
+      (r): r is PromiseFulfilledResult<HackerNewsStory> =>
+        r.status === "fulfilled",
+    )
+    .map((r) => r.value);
+};

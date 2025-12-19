@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
   background: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   position: sticky;
@@ -14,11 +14,12 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
   min-width: 0;
   border: none;
   background: transparent;
   cursor: pointer;
+  transition: opacity 120ms ease;
 }
 
 .brand:hover {
@@ -30,21 +31,21 @@
 }
 
 .logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
   background: #ff6600;
   color: white;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 1.2rem;
 }
 
 .title {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -52,7 +53,7 @@
 
 .searchWrapper {
   flex: 1;
-  max-width: 400px;
+  max-width: 25rem;
   display: flex;
   align-items: center;
   position: relative;
@@ -60,19 +61,19 @@
 
 .searchIcon {
   position: absolute;
-  left: 10px;
+  left: 0.6rem;
   color: rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
 
 .searchInput {
   width: 100%;
-  padding: 8px 12px 8px 32px;
+  padding: 0.5rem 0.75rem 0.5rem 2rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background: rgba(0, 0, 0, 0.02);
   font-family: inherit;
-  font-size: 13px;
+  font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.8);
   transition: border-color 120ms ease, background-color 120ms ease;
 }
@@ -93,41 +94,50 @@
 
 .actions {
   display: inline-flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
-.actionBtn {
+.actionBtn,
+.userBtn,
+.mobileSearchBtn {
   display: inline-flex;
   align-items: center;
-  font-family: inherit;
-  gap: 8px;
+  gap: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(0, 0, 0, 0.03);
-  padding: 8px 10px;
+  padding: 0.5rem 0.65rem;
   border-radius: 999px;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8);
-  transition: background-color 120ms ease, transform 120ms ease, color 120ms ease;
+  font-family: inherit;
+  transition: background-color 120ms ease, transform 120ms ease,
+    color 120ms ease;
 }
 
-.actionBtn:hover {
+.actionBtn:hover,
+.userBtn:hover,
+.mobileSearchBtn:hover {
   background: rgba(0, 0, 0, 0.07);
   color: rgba(0, 0, 0, 0.95);
   transform: translateY(-1px);
 }
 
-.actionBtn:active {
+.actionBtn:active,
+.userBtn:active,
+.mobileSearchBtn:active {
   transform: translateY(0);
+}
+
+.actionBtn:focus-visible,
+.userBtn:focus-visible,
+.mobileSearchBtn:focus-visible {
+  outline: 2px solid #ff6600;
+  outline-offset: 2px;
 }
 
 .actionText {
   font-weight: 600;
-  font-size: 13px;
-}
-
-.actionBtn:focus-visible {
-  outline: 2px solid #ff6600;
-  outline-offset: 2px;
+  font-size: 0.8rem;
 }
 
 .userMenuContainer {
@@ -135,31 +145,7 @@
 }
 
 .userBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(0, 0, 0, 0.03);
-  padding: 8px 10px;
-  border-radius: 999px;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.8);
-  transition: background-color 120ms ease, transform 120ms ease, color 120ms ease;
-}
-
-.userBtn:hover {
-  background: rgba(0, 0, 0, 0.07);
-  color: rgba(0, 0, 0, 0.95);
-  transform: translateY(-1px);
-}
-
-.userBtn:active {
-  transform: translateY(0);
-}
-
-.userBtn:focus-visible {
-  outline: 2px solid #ff6600;
-  outline-offset: 2px;
+  gap: 0.25rem;
 }
 
 .chevronOpen {
@@ -173,13 +159,13 @@
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 0.25rem);
   right: 0;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  min-width: 120px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+  min-width: 7.5rem;
   z-index: 20;
   overflow: hidden;
   animation: slideDown 150ms ease;
@@ -188,7 +174,7 @@
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-4px);
+    transform: translateY(-0.25rem);
   }
   to {
     opacity: 1;
@@ -199,15 +185,15 @@
 .dropdownItem {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
   width: 100%;
   text-align: left;
-  padding: 12px 16px;
+  padding: 0.75rem 1rem;
   border: none;
   background: transparent;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8);
-  font-size: 14px;
+  font-size: 0.85rem;
   font-weight: 500;
   font-family: inherit;
   transition: background-color 100ms ease, color 100ms ease;
@@ -227,40 +213,23 @@
   outline-offset: -2px;
 }
 
+.logoutIcon {
+  transform: scaleX(-1);
+}
+
 .mobileSearchBtn {
   display: none;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(0, 0, 0, 0.03);
-  padding: 8px 10px;
-  border-radius: 999px;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.8);
-  transition: background-color 120ms ease, transform 120ms ease, color 120ms ease;
-}
-
-.mobileSearchBtn:hover {
-  background: rgba(0, 0, 0, 0.07);
-  color: rgba(0, 0, 0, 0.95);
-  transform: translateY(-1px);
-}
-
-.mobileSearchBtn:active {
-  transform: translateY(0);
-}
-
-.mobileSearchBtn:focus-visible {
-  outline: 2px solid #ff6600;
-  outline-offset: 2px;
+  justify-content: center;
 }
 
 .mobileSearchDropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 0.25rem);
   left: 0;
   right: 0;
   background: white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 12px 16px;
+  padding: 0.75rem 1rem;
   z-index: 9;
   animation: slideDown 150ms ease;
 }
@@ -269,11 +238,6 @@
   display: flex;
   align-items: center;
   position: relative;
-}
-
-.mobileSearchWrapper .searchIcon {
-  position: absolute;
-  left: 10px;
 }
 
 .mobileSearchWrapper .searchInput {
@@ -291,11 +255,9 @@
 
   .mobileSearchBtn {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .header {
-    gap: 4px;
+    gap: 0.25rem;
   }
 }
